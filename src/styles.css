@@ -3,7 +3,78 @@
 @tailwind utilities;
 
 @layer base {
-	body {
+	:root {
+		--app-font-style: 'Inter';
+	}
+
+	@font-face {
+		font-family: 'Inter';
+		src: url(./assets/fonts/inter/Inter-VariableFont.woff2) format('woff2');
+		font-display: swap;
+		font-weight: 400 700;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: 'Inter';
+		src: url(./assets/fonts/inter/Inter-Italic-VariableFont.woff2)
+			format('woff2');
+		font-display: swap;
+		font-weight: 400 700;
+		font-style: italic;
+	}
+
+	@font-face {
+		font-family: 'Noto Serif';
+		src: url(./assets/fonts/noto-serif/NotoSerif-VariableFont.woff2)
+			format('woff2');
+		font-display: swap;
+		font-weight: 400 700;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: 'Noto Serif';
+		src: url(./assets/fonts/noto-serif/NotoSerif-Italic-VariableFont.woff2)
+			format('woff2');
+		font-display: swap;
+		font-weight: 400 700;
+		font-style: italic;
+	}
+
+	@font-face {
+		font-family: 'Source Code';
+		src: url(./assets/fonts/source-code-pro/SourceCodePro-VariableFont.woff2)
+			format('woff2');
+		font-display: swap;
+		font-weight: 400 700;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: 'Source Code';
+		src: url(./assets/fonts/source-code-pro/SourceCodePro-Italic-VariableFont.woff2)
+			format('woff2');
+		font-display: swap;
+		font-weight: 400 700;
+		font-style: italic;
+	}
+
+	html {
 		@apply bg-base-300;
+	}
+
+	* {
+		font-family: var(--app-font-style);
+	}
+
+	.font-theme-sans-serif {
+		--app-font-style: 'Inter';
+	}
+	.font-theme-serif {
+		--app-font-style: 'Noto Serif';
+	}
+	.font-theme-monospace {
+		--app-font-style: 'Source Code';
 	}
 }
