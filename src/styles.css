@@ -60,10 +60,6 @@
 		font-style: italic;
 	}
 
-	html {
-		@apply bg-base-300;
-	}
-
 	* {
 		font-family: var(--app-font-style);
 	}
