@@ -1,0 +1,42 @@
+<div class="h-full">
+	<ul class="menu menu-vertical bg-base-200 rounded-none w-full h-full">
+		<li class="hidden 2xl:block pb-4">
+			<button type="button" class="btn btn-block btn-primary">
+				+ Create New Note
+			</button>
+		</li>
+
+		<ng-container *ngFor="let note of notes">
+			<li class="border-b border-neutral">
+				<button type="button">
+					<div class="flex flex-col gap-3">
+						<span class="font-semibold"> React Performance Optimization </span>
+
+						<div class="flex flex-wrap gap-1">
+							<div class="badge badge-neutral badge-md text-xs">Dev</div>
+							<div class="badge badge-neutral badge-md text-xs">React</div>
+							<div class="badge badge-neutral badge-md text-xs">Personal</div>
+						</div>
+
+						<span class="text-xs"> 29 Oct 2024 </span>
+					</div>
+				</button>
+			</li>
+		</ng-container>
+	</ul>
+
+	<div class="fixed bottom-4 right-4 2xl:hidden">
+		<button type="button" class="btn btn-circle btn-primary">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				fill="none"
+				viewBox="0 0 24 24">
+				<path
+					fill="currentColor"
+					d="M12 5a.75.75 0 0 1 .75.75V11H18a.75.75 0 0 1 0 1.5h-5.25v5.25a.75.75 0 0 1-1.5 0V12.5H6A.75.75 0 0 1 6 11h5.25V5.75A.75.75 0 0 1 12 5Z" />
+			</svg>
+		</button>
+	</div>
+</div>
