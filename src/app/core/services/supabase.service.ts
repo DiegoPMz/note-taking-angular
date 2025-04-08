@@ -20,11 +20,9 @@ export class SupabaseService {
 
 	_session: AuthSession | null = null;
 
-	get session() {
-		this.supabase.auth.getSession().then(({ data }) => {
-			this._session = data.session;
-		});
-
+	async getSession(): Promise<AuthSession | null> {
+		const { data } = await this.supabase.auth.getSession();
+		this._session = data.session;
 		return this._session;
 	}
 
@@ -56,5 +54,20 @@ export class SupabaseService {
 
 	signOut() {
 		return this.supabase.auth.signOut();
+	}
+
+	async passwordRecovery(email: string) {
+		return await this.supabase.auth.resetPasswordForEmail(email);
+	}
+
+	async passwordReset(password: string) {
+		if (!this._session) {
+			console.error('session: NULL');
+			return;
+		}
+
+		return await this.supabase.auth.updateUser({
+			password,
+		});
 	}
 }

@@ -7,6 +7,7 @@ import { HeaderControlModule } from '@app/shared/header-control/header-control.m
 import { SidebarNotesModule } from '@app/shared/sidebar-notes/sidebar-notes.module';
 import { SidebarActionsComponent } from './components/sidebar-actions/sidebar-actions.component';
 import { NoteEditorMobileComponent } from './components/note-editor-mobile/note-editor-mobile.component';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 
 @NgModule({
 	declarations: [
@@ -20,7 +21,8 @@ import { NoteEditorMobileComponent } from './components/note-editor-mobile/note-
 		HeaderModule,
 		HeaderControlModule,
 		SidebarNotesModule,
+		DashboardRoutingModule,
 	],
-	exports: [DashboardComponent],
+	// exports: [DashboardComponent],
 })
 export class DashboardModule {}

@@ -181,6 +181,24 @@
 			<div class="pt-[16px]">
 				<button type="submit" class="btn btn-block btn-primary">Sign up</button>
 			</div>
+
+			<div
+				*ngIf="registerFormSubmitError.hasError"
+				class="text-error text-sm mt-4 flex items-center gap-2">
+				<svg
+					class="w-4 h-4"
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor">
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M18.364 5.636a9 9 0 1 0 0 12.728 9 9 0 0 0 0-12.728zM12 8v4m0 4h.01" />
+				</svg>
+				<span>{{ registerFormSubmitError.message }} </span>
+			</div>
 		</form>
 
 		<!-- AUTH0 -->
@@ -188,7 +206,8 @@
 
 		<button
 			type="button"
-			class="btn btn-ghost border border-neutral btn-neutral btn-block">
+			class="btn btn-ghost border border-neutral btn-neutral btn-block"
+			(click)="loginWithGoogle()">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="24"
@@ -209,7 +228,9 @@
 		<span class="text-[14px]">
 			Already have an account?
 
-			<button routerLink="/login" class="btn btn-sm p-0 btn-link">Login</button>
+			<button routerLink="/auth/login" class="btn btn-sm p-0 btn-link">
+				Login
+			</button>
 		</span>
 	</div>
 </div>
