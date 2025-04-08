@@ -1,25 +1,25 @@
 <app-sidebar>
 	<!-- MAIN CONTAINER -->
-	<div class="relative">
+	<div class="!flex flex-col h-full">
 		<!-- HEADER -->
-		<div class="h-fit sticky top-0 z-40 bg-base-200">
+		<div class="h-fit sticky top-0 z-40 bg-base-100">
 			<app-header />
 		</div>
 
 		<!-- PHONE DASHBOARD -->
-		<div class="flex flex-col 2xl:flex-row">
+		<div class="h-full flex flex-col 2xl:flex-row">
 			<h1
 				class="text-2xl font-bold p-4 sticky top-[64px] z-50 bg-base-200 2xl:hidden">
 				All Notes
 			</h1>
 			<div
-				class="relative 2xl:w-[290px] 2xl:before:fixed 2xl:before:w-[290px] 2xl:before:h-full 2xl:before:bg-base-200 2xl:before:border-r 2xl:before:border-base-content">
+				class="relative 2xl:w-[290px] 2xl:before:fixed 2xl:before:w-[290px] 2xl:before:h-full 2xl:before:bg-base-100 2xl:before:border-r 2xl:before:border-base-content">
 				<app-sidebar-notes />
 			</div>
 
 			<!-- NOTE CONTENT -->
 			<textarea
-				class="hidden 2xl:block 2xl:flex-grow textarea textarea-ghost rounded-none resize-none focus:outline-none"></textarea>
+				class="hidden h-full 2xl:block 2xl:flex-grow textarea textarea-ghost rounded-none resize-none focus:outline-none"></textarea>
 
 			<!-- SIDEBAR ACTIONS -->
 			<app-sidebar-actions />

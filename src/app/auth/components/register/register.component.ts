@@ -1,11 +1,21 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { SupabaseService } from '@app/core/services/supabase.service';
 
 @Component({
 	selector: 'app-register',
 	templateUrl: './register.component.html',
 })
 export class RegisterComponent {
+	registerFormSubmitError = {
+		hasError: false,
+		message: 'An error occurred. Please try again.',
+	};
+
+	inputMode: 'password' | 'text' = 'password';
+	isLoading = false;
+
 	registerForm = new FormGroup({
 		email: new FormControl('', {
 			validators: [Validators.required, Validators.email],
@@ -14,15 +24,6 @@ export class RegisterComponent {
 			validators: [Validators.required, Validators.minLength(8)],
 		}),
 	});
-
-	onSubmit() {
-		if (this.registerForm.invalid) {
-			this.registerForm.markAllAsTouched();
-			return;
-		}
-	}
-
-	inputMode: 'password' | 'text' = 'password';
 
 	togglePasswordVisibility() {
 		this.inputMode = this.inputMode === 'password' ? 'text' : 'password';
@@ -44,5 +45,62 @@ export class RegisterComponent {
 
 		const hasError = this.passwordControl.errors;
 		return this.passwordControl.touched && hasError !== null;
+	}
+
+	constructor(
+		private readonly supabase: SupabaseService,
+		private readonly router: Router
+	) {}
+
+	onSubmit() {
+		if (this.registerForm.invalid) {
+			this.registerForm.markAllAsTouched();
+			return;
+		}
+
+		const email = this.emailControl.value;
+		const password = this.passwordControl.value;
+		if (!email || !password) return;
+		this.isLoading = true;
+
+		this.supabase
+			.signUp(email, password)
+			.then(({ data, error }) => {
+				if (data.user && !error) {
+					this.registerForm.reset();
+					return this.router.navigateByUrl('');
+				}
+
+				this.registerFormSubmitError = {
+					...this.registerFormSubmitError,
+					hasError: true,
+					message: error?.message ?? this.registerFormSubmitError.message,
+				};
+
+				return;
+			})
+			.finally(() => (this.isLoading = false));
+	}
+
+	loginWithGoogle() {
+		this.supabase
+			.signInWithGoogle()
+			.then(({ data, error }) => {
+				this.isLoading = true;
+
+				if (!error || !data.url) {
+					this.registerForm.reset();
+					return this.router.navigateByUrl('');
+				}
+
+				this.registerFormSubmitError = {
+					...this.registerFormSubmitError,
+					hasError: true,
+					message: error?.message ?? this.registerFormSubmitError.message,
+				};
+
+				return;
+			})
+			.finally(() => (this.isLoading = false));
 	}
 }
