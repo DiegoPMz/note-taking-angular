@@ -3,17 +3,34 @@ import {
 	AuthChangeEvent,
 	AuthSession,
 	createClient,
+	PostgrestMaybeSingleResponse,
 	Session,
 	SupabaseClient,
 } from '@supabase/supabase-js';
 import { environment } from 'src/environments/environment';
 import { Database } from '../types/supabase';
 
+export interface SingleNoteWithTags {
+	archived: boolean;
+	content: string | null;
+	created_at: string;
+	id: number;
+	title: string | null;
+	updated_at: string;
+	user_id: string;
+	tags: {
+		id: number;
+		name: string;
+	}[];
+}
+
+export type NotesWithTags = SingleNoteWithTags[];
+
 @Injectable({
 	providedIn: 'root',
 })
 export class SupabaseService {
-	private supabase: SupabaseClient = createClient<Database>(
+	private supabase: SupabaseClient<Database> = createClient(
 		environment.supabaseUrl,
 		environment.supabaseKey
 	);
@@ -70,4 +87,27 @@ export class SupabaseService {
 			password,
 		});
 	}
+
+	async getAllActiveNotes() {
+		const session = await this.getSession();
+
+		return await this.supabase
+			.from('notes')
+			.select('*')
+			.eq('user_id', session?.user.id ?? '');
+	}
+
+	async getNotesWithTags(): Promise<
+		PostgrestMaybeSingleResponse<NotesWithTags>
+	> {
+		return await this.supabase.from('notes').select('*,tags(id, name)');
+	}
+
+	// async createNote(note: Pick<Tables<'notes'>, 'title' | 'content'>) {}
+
+	// async getAllArchivedNotes() {
+
+	// async getArchivedNotes() {}
+
+	// async getNoteById(noteID: string) {}
 }
