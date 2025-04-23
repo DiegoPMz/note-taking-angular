@@ -1,0 +1,22 @@
+<div
+	class="w-full min-h-screen bg-base-100 absolute top-0 left-0 z-50 flex flex-col overflow-x-hidden">
+	<div class="h-fit sticky top-0 z-40">
+		<app-header />
+		<!-- <app-header-control /> -->
+		<ng-content select="[page-nav]"></ng-content>
+	</div>
+
+	<div class="flex flex-col !flex-grow">
+		<!-- HEADER CONTENT -->
+		<section class="h-fit flex flex-col gap-2 px-4">
+			<ng-content select="[page-title]"></ng-content>
+		</section>
+
+		<!-- PAGE CONTENT -->
+		<div class="!flex-grow flex flex-col">
+			<ng-content select="[page-content]"></ng-content>
+		</div>
+	</div>
+
+	<app-bottom-navigation />
+</div>

@@ -9,6 +9,10 @@ const routes: Routes = [
 	},
 ];
 
+// { path: 'archived', component: DashboardComponent },
+// { path: 'tags', component: DashboardComponent },
+// { path: 'settings', component: DashboardComponent },
+
 @NgModule({
 	imports: [RouterModule.forChild(routes)],
 	exports: [RouterModule],
