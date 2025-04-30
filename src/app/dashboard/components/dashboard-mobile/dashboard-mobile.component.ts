@@ -40,15 +40,55 @@ export class DashboardMobileComponent {
 	userNotes$ = this._dashboardService.userNotes$;
 	noteSelected$ = this._dashboardService.currentNote$;
 
+	searchParam$ = this._dashboardService.dashboardParams$.pipe(
+		map(param => param.search)
+	);
+
+	filteredNotesBySearch$ = this._dashboardService.filteredNotesBySearch$.pipe(
+		tap(val => console.log('search-value:', val))
+	);
+
+	private DEFAULT_ERROR_RESPONSE = {
+		hasError: false,
+		errMessage: '',
+	} as const;
+
+	invalidNotesAllNotesSection = this.userNotes$.pipe(
+		map(notes => {
+			if (!notes || notes.length < 1)
+				return {
+					hasError: true,
+					errMessage:
+						'You don’t have any notes yet. Start a new note to capture your thoughts and ideas.',
+				};
+			return this.DEFAULT_ERROR_RESPONSE;
+		})
+	);
+
+	invalidFilteredNotesSearchSection = this.filteredNotesBySearch$.pipe(
+		map(filteredNotes => {
+			if (filteredNotes && filteredNotes.length < 1)
+				return {
+					hasError: true,
+					errMessage:
+						'No notes match your search. Try a different keyword or create a new note.',
+				};
+
+			return this.DEFAULT_ERROR_RESPONSE;
+		})
+	);
+
 	pageToDisplay = this._dashboardService.dashboardParams$.pipe(
 		map(params => {
+			const isSearchParamDefined =
+				params.search !== null || params.search !== undefined;
+
 			if (params.note) return this.PAGES_TO_DISPLAY.NOTE_PAGE;
 			if (params.pgtag && params.tag) return this.PAGES_TO_DISPLAY.TAG_PAGE;
-			if (params.pgsearch && params.search)
+			if (params.pgsearch && isSearchParamDefined)
 				return this.PAGES_TO_DISPLAY.SEARCH_PAGE;
 			return this.PAGES_TO_DISPLAY.DEFAULT_PAGE;
-		}),
-		tap(val => console.log('page:', val))
+		})
 	);
 
 	goBack() {

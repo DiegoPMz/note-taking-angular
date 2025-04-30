@@ -31,7 +31,7 @@
 	</button>
 	<button
 		routerLink
-		[queryParams]="{ pgsearch: true }"
+		[queryParams]="{ pgsearch: true, search: '' }"
 		[ngClass]="{
 			'active text-primary': appNavigationParams?.pgsearch,
 		}">

@@ -6,42 +6,43 @@
 			</button>
 		</li>
 
-		<ng-container *ngIf="notes | async as notes; else elseNotes">
-			<ng-container *ngFor="let note of notes; trackBy: trackByNoteId">
-				<li>
-					<button
-						type="button"
-						routerLink
-						[queryParams]="{ note: note.id }"
-						(click)="emitSelectedNote.emit(note)">
-						<div class="flex flex-col gap-3 relative">
-							<span class="font-semibold">
-								{{ note.title }}
-							</span>
+		<ng-container *ngIf="errorState$ | async as errorState">
+			<ng-container *ngIf="!errorState.hasError; else notesHasError">
+				<ng-container *ngIf="notes$ | async as notes">
+					<li *ngFor="let note of notes; trackBy: trackByNoteId">
+						<button
+							type="button"
+							routerLink
+							[queryParams]="{ note: note.id }"
+							(click)="emitSelectedNote.emit(note)">
+							<div class="flex flex-col gap-3 relative">
+								<span class="font-semibold">
+									{{ note.title }}
+								</span>
 
-							<div *ngIf="note.tags.length > 0" class="flex flex-wrap gap-1">
-								<ng-container *ngFor="let tag of note.tags">
-									<div class="badge badge-neutral badge-md text-xs">
-										{{ tag.name }}
-									</div>
-								</ng-container>
+								<div *ngIf="note.tags.length > 0" class="flex flex-wrap gap-1">
+									<ng-container *ngFor="let tag of note.tags">
+										<div class="badge badge-neutral badge-md text-xs">
+											{{ tag.name }}
+										</div>
+									</ng-container>
+								</div>
+
+								<span class="text-xs"> 29 Oct 2024 </span>
 							</div>
-
-							<span class="text-xs"> 29 Oct 2024 </span>
-						</div>
-					</button>
-					<div class="divider h-[0px] m-0 py-0 pointer-events-none"></div>
-				</li>
+						</button>
+						<div class="divider h-[0px] m-0 py-0 pointer-events-none"></div>
+					</li>
+				</ng-container>
 			</ng-container>
-		</ng-container>
 
-		<ng-template #elseNotes>
-			<span
-				class="z-10 bg-base-300 text-base-content rounded-lg p-2 text-pretty">
-				You don’t have any notes yet. Start a new note to capture your thoughts
-				and ideas.
-			</span>
-		</ng-template>
+			<ng-template #notesHasError>
+				<span
+					class="z-10 bg-base-300 text-base-content rounded-lg mx-4 p-2 text-pretty">
+					{{ errorState.errMessage }}
+				</span>
+			</ng-template>
+		</ng-container>
 	</ul>
 
 	<div class="fixed bottom-[10%] right-4 2xl:hidden">
