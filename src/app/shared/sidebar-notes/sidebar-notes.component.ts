@@ -1,22 +1,32 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
 	NotesWithTags,
 	SingleNoteWithTags,
 	SupabaseService,
 } from '@app/core/services/supabase.service';
 import { Tables } from '@app/core/types/supabase';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-sidebar-notes',
 	templateUrl: './sidebar-notes.component.html',
 })
-export class SidebarNotesComponent {
-	@Input() notes!: Observable<NotesWithTags | null>;
+export class SidebarNotesComponent implements OnInit {
+	@Input({ required: true }) notes$!: Observable<NotesWithTags | null>;
+	@Input({ required: true }) errorState$!: Observable<{
+		hasError: boolean;
+		errMessage: string;
+	}>;
+
 	@Output() emitSelectedNote = new EventEmitter<SingleNoteWithTags>();
-	// @Input() showCreateNoteButton?: boolean = false;
 
 	constructor(private readonly supabase: SupabaseService) {}
+
+	ngOnInit(): void {
+		if (!this.notes$) return;
+
+		this.filterEmptyNotes();
+	}
 
 	// TEMPORAL
 	signOut() {
@@ -25,5 +35,14 @@ export class SidebarNotesComponent {
 
 	trackByNoteId(index: number, note: Tables<'notes'>) {
 		return note.id;
+	}
+
+	private filterEmptyNotes(): void {
+		this.notes$ = this.notes$.pipe(
+			map(notes => {
+				if (!notes || notes.length === 0) return null;
+				return notes;
+			})
+		);
 	}
 }

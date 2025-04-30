@@ -13,6 +13,8 @@ import { BottomNavigationModule } from '@app/shared/bottom-navigation/bottom-nav
 import { DashboardService } from './services/dashboard.service';
 import { TagsListMobileComponent } from './components/tags-list-mobile/tags-list-mobile.component';
 import { SectionPageMobileComponent } from './components/section-page-mobile/section-page-mobile.component';
+import { NotesSearchInputComponent } from './components/notes-search-input/notes-search-input.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [
@@ -21,17 +23,19 @@ import { SectionPageMobileComponent } from './components/section-page-mobile/sec
 		DashboardMobileComponent,
 		TagsListMobileComponent,
 		SectionPageMobileComponent,
+		NotesSearchInputComponent,
 	],
 	imports: [
 		CommonModule,
+		RouterModule,
+		ReactiveFormsModule,
+		//
 		SidebarModule,
 		HeaderModule,
 		HeaderControlModule,
 		SidebarNotesModule,
 		DashboardRoutingModule,
 		BottomNavigationModule,
-		//
-		RouterModule,
 	],
 	// exports: [DashboardComponent],
 	providers: [DashboardService],
