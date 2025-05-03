@@ -1,9 +1,8 @@
 <div class="btm-nav btm-nav-sm">
 	<button
-		routerLink="/"
-		[ngClass]="{
-			'active text-primary': areEmptyParams,
-		}">
+		[routerLink]="['/']"
+		routerLinkActive="active text-primary"
+		[routerLinkActiveOptions]="{ exact: true }">
 		<svg
 			class="h-5 w-5"
 			xmlns="http://www.w3.org/2000/svg"
@@ -30,11 +29,9 @@
 		<span class="hidden md:block btm-nav-label">Home</span>
 	</button>
 	<button
-		routerLink
-		[queryParams]="{ pgsearch: true, search: '' }"
-		[ngClass]="{
-			'active text-primary': appNavigationParams?.pgsearch,
-		}">
+		routerLink="/search"
+		routerLinkActive="active text-primary"
+		[routerLinkActiveOptions]="{ exact: true }">
 		<svg
 			class="h-5 w-5"
 			xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +52,10 @@
 		</svg>
 		<span class="hidden md:block btm-nav-label">Search</span>
 	</button>
-	<button routerLink="/archived" routerLinkActive="active text-primary">
+	<button
+		routerLink="/archived"
+		routerLinkActive="active text-primary"
+		[routerLinkActiveOptions]="{ exact: true }">
 		<svg
 			class="h-5 w-5"
 			xmlns="http://www.w3.org/2000/svg"
@@ -79,11 +79,9 @@
 		<span class="hidden md:block btm-nav-label">Archived</span>
 	</button>
 	<button
-		routerLink
-		[queryParams]="{ pgtag: true }"
-		[ngClass]="{
-			'active text-primary': appNavigationParams?.pgtag,
-		}">
+		routerLink="/tags"
+		routerLinkActive="active text-primary"
+		[routerLinkActiveOptions]="{ exact: true }">
 		<svg
 			class="h-5 w-5"
 			xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +106,10 @@
 		</svg>
 		<span class="hidden md:block btm-nav-label">Tags</span>
 	</button>
-	<button routerLink="/settings" routerLinkActive="active text-primary">
+	<button
+		routerLink="/settings"
+		routerLinkActive="active text-primary"
+		[routerLinkActiveOptions]="{ exact: true }">
 		<svg
 			class="h-5 w-5"
 			xmlns="http://www.w3.org/2000/svg"
