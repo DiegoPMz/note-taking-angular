@@ -1,11 +1,14 @@
-<ng-container *ngIf="isSmallScreen; else desktopScreen">
-	<app-dashboard-mobile />
-</ng-container>
+<app-sidebar>
+	<div class="!h-full flex flex-col">
+		<div class="sticky top-0 z-40">
+			<app-header>
+				<app-notes-search-input header-input />
+			</app-header>
+		</div>
 
-<ng-template #desktopScreen>
-	<app-sidebar>
-		<app-header>
-			<app-notes-search-input header-input />
-		</app-header>
-	</app-sidebar>
-</ng-template>
+		<div class="!flex-grow pb-12 2xl:hidden">
+			<router-outlet />
+			<app-bottom-navigation />
+		</div>
+	</div>
+</app-sidebar>
