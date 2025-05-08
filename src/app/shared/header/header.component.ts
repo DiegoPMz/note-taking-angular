@@ -5,5 +5,5 @@ import { Component, Input } from '@angular/core';
 	templateUrl: './header.template.html',
 })
 export class HeaderComponent {
-	@Input() headerTitle = 'Default Header Title';
+	@Input() headerTitle?: string = 'Default Header Title';
 }

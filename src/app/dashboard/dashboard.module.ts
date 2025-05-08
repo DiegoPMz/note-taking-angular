@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './dashboard.component';
 import { SidebarModule } from '@app/shared/sidebar/sidebar.module';
 import { HeaderModule } from '@app/shared/header/header.module';
 import { HeaderControlModule } from '@app/shared/header-control/header-control.module';
@@ -19,10 +18,11 @@ import { MobileTagDetailsPageComponent } from './pages/mobile-tag-details-page/m
 import { MobileSearchPageComponent } from './pages/mobile-search-page/mobile-search-page.component';
 import { MobileNoteDetailsComponent } from './pages/mobile-note-details/mobile-note-details.component';
 import { MobileHomePageComponent } from './pages/mobile-home-page/mobile-home-page.component';
+import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
+import { DesktopDashboardViewComponent } from './components/desktop-dashboard-view/desktop-dashboard-view.component';
 
 @NgModule({
 	declarations: [
-		DashboardComponent,
 		SidebarActionsComponent,
 		TagsListMobileComponent,
 		SectionPageMobileComponent,
@@ -32,6 +32,8 @@ import { MobileHomePageComponent } from './pages/mobile-home-page/mobile-home-pa
 		MobileTagDetailsPageComponent,
 		MobileSearchPageComponent,
 		MobileNoteDetailsComponent,
+		DashboardLayoutComponent,
+		DesktopDashboardViewComponent,
 	],
 	imports: [
 		CommonModule,
@@ -44,9 +46,9 @@ import { MobileHomePageComponent } from './pages/mobile-home-page/mobile-home-pa
 		SidebarNotesModule,
 		DashboardRoutingModule,
 		BottomNavigationModule,
+		HeaderControlModule,
 		//
 	],
-	// exports: [DashboardComponent],
 	providers: [DashboardService],
 })
 export class DashboardModule {}

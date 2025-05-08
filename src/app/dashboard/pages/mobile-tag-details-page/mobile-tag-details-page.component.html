@@ -1,44 +1,46 @@
-<app-section-page-mobile>
-	<ul class="menu menu-horizontal w-full" page-nav>
-		<li>
-			<button [routerLink]="['/tags']" type="button">
-				<svg
-					class="w-4 h-4"
-					xmlns="http://www.w3.org/2000/svg"
-					width="24"
-					height="24"
-					fill="none"
-					viewBox="0 0 24 24">
-					<path
-						fill="currentColor"
-						fill-rule="evenodd"
-						d="M15.75 20.414 7.336 12l8.414-8.414L17.164 5l-7 7 7 7-1.414 1.414Z"
-						clip-rule="evenodd" />
-				</svg>
-				All tags
-			</button>
-		</li>
-	</ul>
+<app-dashboard-layout>
+	<app-section-page-mobile>
+		<ul class="menu menu-horizontal w-full" page-nav>
+			<li>
+				<button [routerLink]="['/tags']" type="button">
+					<svg
+						class="w-4 h-4"
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						fill="none"
+						viewBox="0 0 24 24">
+						<path
+							fill="currentColor"
+							fill-rule="evenodd"
+							d="M15.75 20.414 7.336 12l8.414-8.414L17.164 5l-7 7 7 7-1.414 1.414Z"
+							clip-rule="evenodd" />
+					</svg>
+					All tags
+				</button>
+			</li>
+		</ul>
 
-	<ng-container
-		page-title
-		*ngIf="tagSelectedDetails$ | async as tagSelectedDetails">
-		<h2 class="text-2xl font-bold">
-			Notes Tagged:
-			<span class="text-primary">
-				{{ tagSelectedDetails.name }}
-			</span>
-		</h2>
-		<span class="text-sm"
-			>All notes with the
-			<span class="font-bold"> ”{{ tagSelectedDetails.name }}” </span>
-			tag are shown here.</span
-		>
-	</ng-container>
+		<ng-container
+			page-title
+			*ngIf="tagSelectedDetails$ | async as tagSelectedDetails">
+			<h2 class="text-2xl font-bold">
+				Notes Tagged:
+				<span class="text-primary">
+					{{ tagSelectedDetails.name }}
+				</span>
+			</h2>
+			<span class="text-sm"
+				>All notes with the
+				<span class="font-bold"> ”{{ tagSelectedDetails.name }}” </span>
+				tag are shown here.</span
+			>
+		</ng-container>
 
-	<ng-container page-content>
-		<app-sidebar-notes
-			[notes$]="notesBySelectedTag$"
-			[errorState$]="invalidNotesBySelectedTagError$" />
-	</ng-container>
-</app-section-page-mobile>
+		<ng-container page-content>
+			<app-sidebar-notes
+				[notes$]="notesBySelectedTag$"
+				[errorState$]="invalidNotesBySelectedTagError$" />
+		</ng-container>
+	</app-section-page-mobile>
+</app-dashboard-layout>

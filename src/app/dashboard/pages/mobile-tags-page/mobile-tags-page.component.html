@@ -1,5 +1,7 @@
-<section class="flex flex-col 2xl:hidden">
-	<h1 class="text-2xl font-bold px-4 pt-4">Tags</h1>
+<app-dashboard-layout>
+	<div class="flex flex-col 2xl:hidden">
+		<h1 class="text-2xl font-bold px-4 pt-4">Tags</h1>
 
-	<app-tags-list-mobile [tags$]="userTags$" />
-</section>
+		<app-tags-list-mobile [tags$]="userTags$" />
+	</div>
+</app-dashboard-layout>

@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { DASHBOARD_TITLE_PAGES } from '@app/dashboard/dashboard-routing.module';
 import { DashboardService } from '@app/dashboard/services/dashboard.service';
 import {
 	debounceTime,
@@ -14,7 +16,10 @@ import {
 	templateUrl: './notes-search-input.component.html',
 })
 export class NotesSearchInputComponent implements OnInit, OnDestroy {
-	constructor(private _dashboardService: DashboardService) {}
+	constructor(
+		private _dashboardService: DashboardService,
+		private _router: Router
+	) {}
 
 	private _destroy$ = new Subject<void>();
 
@@ -25,7 +30,14 @@ export class NotesSearchInputComponent implements OnInit, OnDestroy {
 	private _searchQuerySetter$ = this.searchInputControl.valueChanges.pipe(
 		debounceTime(500),
 		distinctUntilChanged(),
-		tap(value => this._dashboardService.setSearchQuery(value ?? ''))
+		tap(value => this._dashboardService.setSearchQuery(value ?? '')),
+		tap(value => {
+			if (value) {
+				this._router.navigate(['/search'], {
+					state: { currentPage: DASHBOARD_TITLE_PAGES.SEARCH },
+				});
+			}
+		})
 	);
 
 	ngOnInit() {
