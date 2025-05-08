@@ -102,12 +102,9 @@
 						*ngFor="let tag of tagCollection; trackBy: trackByTagId">
 						<li>
 							<button
-								routerLink
-								[queryParams]="{ tag: tag.name }"
-								queryParamsHandling="merge"
-								[ngClass]="{
-									'active ': tag.name === selectedTag,
-								}">
+								[routerLink]="['/tags', tag.id]"
+								[routerLinkActive]="'active'"
+								[routerLinkActiveOptions]="{ exact: true }">
 								<svg
 									class="w-[20px] h-[20px]"
 									xmlns="http://www.w3.org/2000/svg"

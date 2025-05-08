@@ -1,28 +1,13 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-sidebar',
 	templateUrl: './sidebar.component.html',
 })
-export class SidebarComponent implements OnInit, OnDestroy {
+export class SidebarComponent {
 	@Input() tagCollection$?: Observable<{ name: string; id: number }[]>;
-	@Input() selectedTag$?: Observable<string | null>;
-
-	// Subject para manejar la destrucción
-	private destroy$ = new Subject<void>();
-	selectedTag: string | null = null;
-
-	ngOnInit(): void {
-		this.selectedTag$?.pipe(takeUntil(this.destroy$)).subscribe(val => {
-			this.selectedTag = val;
-		});
-	}
-
-	ngOnDestroy(): void {
-		this.destroy$.next();
-		this.destroy$.complete();
-	}
+	@Input() selectedTag$?: Observable<{ name: string; id: number }>;
 
 	trackByTagId(index: number, tag: { name: string; id: number }) {
 		return tag.id;

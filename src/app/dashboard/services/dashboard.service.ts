@@ -155,6 +155,13 @@ export class DashboardService {
 		{ id: 7, name: 'Education' },
 	]);
 
+	selectedNoteId$ = this.route.queryParamMap.pipe(
+		map(param => {
+			const noteId = parseInt(param.get('note') ?? '');
+			return isNaN(noteId) ? null : noteId;
+		})
+	);
+
 	private _searchQuerySubject = new BehaviorSubject<string>('');
 	searchQuery$ = this._searchQuerySubject.asObservable();
 
