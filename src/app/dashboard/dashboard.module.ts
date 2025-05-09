@@ -20,6 +20,10 @@ import { MobileNoteDetailsComponent } from './pages/mobile-note-details/mobile-n
 import { MobileHomePageComponent } from './pages/mobile-home-page/mobile-home-page.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 import { DesktopDashboardViewComponent } from './components/desktop-dashboard-view/desktop-dashboard-view.component';
+import { IconSearchComponent } from '@app/shared/icons/icon-search/icon-search.component';
+import { IconDeleteComponent } from '../shared/icons/icon-delete/icon-delete.component';
+import { IconClockComponent } from '@app/shared/icons/icon-clock/icon-clock.component';
+import { IconTagComponent } from '../shared/icons/icon-tag/icon-tag.component';
 
 @NgModule({
 	declarations: [
@@ -48,6 +52,10 @@ import { DesktopDashboardViewComponent } from './components/desktop-dashboard-vi
 		BottomNavigationModule,
 		HeaderControlModule,
 		//
+		IconSearchComponent,
+		IconDeleteComponent,
+		IconClockComponent,
+		IconTagComponent,
 	],
 	providers: [DashboardService],
 })
