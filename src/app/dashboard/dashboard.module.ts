@@ -24,6 +24,7 @@ import { IconSearchComponent } from '@app/shared/icons/icon-search/icon-search.c
 import { IconDeleteComponent } from '../shared/icons/icon-delete/icon-delete.component';
 import { IconClockComponent } from '@app/shared/icons/icon-clock/icon-clock.component';
 import { IconTagComponent } from '../shared/icons/icon-tag/icon-tag.component';
+import { NoteDetailsDisplayComponent } from './components/note-details-display/note-details-display.component';
 
 @NgModule({
 	declarations: [
@@ -38,6 +39,7 @@ import { IconTagComponent } from '../shared/icons/icon-tag/icon-tag.component';
 		MobileNoteDetailsComponent,
 		DashboardLayoutComponent,
 		DesktopDashboardViewComponent,
+  NoteDetailsDisplayComponent,
 	],
 	imports: [
 		CommonModule,

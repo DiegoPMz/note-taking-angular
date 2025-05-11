@@ -1,0 +1,41 @@
+<div class="flex flex-col h-full" *ngIf="selectedNote$ | async as noteDetails">
+	<div class="sticky top-0 overflow-x-hidden 2xl:hidden">
+		<app-header-control page-nav />
+	</div>
+
+	<div class="flex flex-col px-4 2xl:px-6 2xl:pt-6">
+		<h1 class="text-2xl font-bold py-4 2xl:pt-0">{{ noteDetails.title }}</h1>
+
+		<ul class="flex flex-col gap-2 text-sm">
+			<li class="flex items-center text-base-content">
+				<div class="flex items-center w-[140px] gap-[6px]">
+					<app-icon-tag width="16px" height="16px" />
+					Tags
+				</div>
+
+				<span class="flex-grow font-bold">
+					<ng-container *ngFor="let tag of noteDetails.tags">
+						{{ tag.name }}
+					</ng-container>
+				</span>
+			</li>
+			<li class="flex items-center text-base-content">
+				<div class="flex items-center w-[140px] gap-[6px]">
+					<app-icon-clock width="16px" height="16px" />
+					Last edited
+				</div>
+
+				<span class="flex-grow">
+					{{ noteDetails.updated_at | date }}
+				</span>
+			</li>
+		</ul>
+
+		<div class="divider"></div>
+	</div>
+
+	<textarea
+		class="flex-grow textarea border-none focus:outline-none resize-none w-full rounded-none 2xl:px-6"
+		[value]="noteDetails.content">
+	</textarea>
+</div>

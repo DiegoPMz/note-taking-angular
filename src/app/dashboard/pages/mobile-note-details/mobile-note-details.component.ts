@@ -9,7 +9,7 @@ import { combineLatest, map } from 'rxjs';
 export class MobileNoteDetailsComponent {
 	constructor(private _dashboardService: DashboardService) {}
 
-	noteSelected$ = combineLatest([
+	selectedNote$ = combineLatest([
 		this._dashboardService.userNotes$,
 		this._dashboardService.selectedNoteId$,
 	]).pipe(
