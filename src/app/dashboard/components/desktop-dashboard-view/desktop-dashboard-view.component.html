@@ -1,85 +1,28 @@
-<div class="hidden h-full 2xl:flex flex-col">
+<div class="hidden h-full 2xl:flex flex-col relative">
 	<app-header [headerTitle]="(currentPageTitle$ | async) ?? undefined">
 		<app-notes-search-input header-input />
 	</app-header>
 
 	<section class="h-full flex">
-		<div class="w-[290px] relative">
-			<ng-container [ngSwitch]="activeRouteData$ | async">
-				<app-sidebar-notes
-					*ngSwitchCase="DASHBOARD_ROUTE_DATA.HOME"
-					[notes$]="userNotes$"
-					[errorState$]="invalidNotesAllNotesError$" />
-
-				<ng-container *ngSwitchCase="DASHBOARD_ROUTE_DATA.SEARCH">
-					<app-sidebar-notes
-						*ngIf="shouldDisplaySearchContent$ | async; else emptySearchQuery"
-						[notes$]="filteredNotesBySearchQuery$"
-						[errorState$]="invalidNotesBySearchError$" />
-
-					<ng-template #emptySearchQuery>
-						<app-sidebar-notes
-							[notes$]="userNotes$"
-							[errorState$]="invalidNotesAllNotesError$" />
-					</ng-template>
-				</ng-container>
-
-				<app-sidebar-notes
-					*ngSwitchCase="DASHBOARD_ROUTE_DATA.TAG_DETAILS"
-					[notes$]="notesBySelectedTag$"
-					[errorState$]="invalidNotesBySelectedTagError$" />
-			</ng-container>
+		<div
+			class="min-w-[290px] w-[290px] h-full relative max-h-[875px] overflow-y-auto overflow-x-clip">
+			<app-sidebar-notes
+				[notes$]="notesToDisplayByRoute$"
+				[errorState$]="notesDisplayErrorState$" />
 
 			<div
 				class="divider divider-horizontal absolute w-[1px] h-full m-0 ring-0 right-0 top-0"></div>
 		</div>
-		<main class="flex-grow flex flex-col">
-			<!-- header -->
-			<ng-container *ngIf="selectedNote$ | async as selectedNote">
-				<div class="flex flex-col px-6 pt-6">
-					<h1 class="text-2xl font-bold pb-4">{{ selectedNote.title }}</h1>
 
-					<ul class="flex flex-col gap-2 text-sm">
-						<li class="flex items-center text-base-content">
-							<div class="flex items-center w-[35%] gap-[6px]">
-								<app-icon-tag width="16px" height="16px" />
-								Tags
-							</div>
-
-							<span class="flex-grow font-bold">
-								<ng-container *ngFor="let tag of selectedNote.tags">
-									{{ tag.name }},
-								</ng-container>
-							</span>
-						</li>
-						<li class="flex items-center text-base-content">
-							<div class="flex items-center w-[35%] gap-[6px]">
-								<app-icon-clock width="16px" height="16px" />
-								Last edited
-							</div>
-
-							<span class="flex-grow">
-								{{ selectedNote.updated_at | date }}
-							</span>
-						</li>
-					</ul>
-
-					<div class="divider"></div>
-				</div>
-
-				<textarea
-					class="flex-grow textarea border-none focus:outline-none resize-none w-full rounded-none px-6"
-					[value]="selectedNote.content">
-				</textarea>
-			</ng-container>
-		</main>
+		<!-- </main> -->
+		<app-note-details-display class="w-full" [selectedNote$]="selectedNote$" />
 
 		<ng-container *ngIf="selectedNote$ | async; else emptySelectedNote">
 			<app-sidebar-actions />
 		</ng-container>
 
 		<ng-template #emptySelectedNote>
-			<div class="relative w-[258px] min-h-full">
+			<div class="relative min-w-[258px] min-h-full">
 				<div
 					class="divider divider-horizontal m-0 p-0 absolute top-0 left-0 w-[1px] h-full"></div>
 			</div>
